@@ -88,17 +88,14 @@ jobs:
       if: success()
       run: |
         cd openwrt
-        mv .config config.txt
-        ls -a
-        echo "CONFIG=$PWD/config.txt" >> $GITHUB_ENV
-        echo "::set-output name=status::success"
-        echo ${{ env.CONFIG }}
+        mkdir uploadDir
+        sudo cp .config uploadDir/.config
         
     - name: Upload config
       uses: actions/upload-artifact@main
       with:
-        name: config
-        path: ${{ env.CONFIG }}
+        name: Openwrt_UploadDir
+        path: openwrt/uploadDir
         if-no-files-found: error
 
     - name: Delete workflow runs
