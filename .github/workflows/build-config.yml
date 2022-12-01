@@ -89,7 +89,8 @@ jobs:
       run: |
         cd openwrt
         mv .config config.txt
-        echo "OPENWRT=$PWD" >> $GITHUB_ENV
+        ls -a
+        echo "CONFIG=$PWD/config.txt" >> $GITHUB_ENV
         echo "::set-output name=status::success"
         echo ${{ env.CONFIG }}
         
@@ -97,7 +98,7 @@ jobs:
       uses: actions/upload-artifact@main
       with:
         name: config
-        path: ${{ env.OPENWRT }}/config.txt
+        path: ${{ env.CONFIG }}
         if-no-files-found: error
 
     - name: Delete workflow runs
